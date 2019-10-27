@@ -1,26 +1,60 @@
 import moment from 'moment';
 
+// Generate testing data
 const calendar = (startDate) => {
-  const today = moment().format("YYYY-MM-DD");
+  const lastSetDate = moment().hour() > 5 ?
+                      moment().subtract(1, 'day').format("YYYY-MM-DD") :
+                      moment().subtract(2, 'day').format("YYYY-MM-DD");
   let day = {
-              date: startDate,
-              userTime: "10:15pm",
-              partnerTime: "11:23pm"
-             };
+      date: startDate,
+      userTime: "10:15pm",
+      partnerTime: "11:23pm"
+  };
   const dates = [];
-  if (startDate === today)
-    return [today];
-  while (day.date !== today) {
+  if (startDate === lastSetDate)
+    return [lastSetDate];
+  while (day.date !== lastSetDate) {
     dates.push(day);
     day = {
-            date: moment(day.date).add(1, 'day').format("YYYY-MM-DD"),
-            userTime: "10:15pm",
-            partnerTime: "11:23pm"
-           };
+        date: moment(day.date).add(1, 'day').format("YYYY-MM-DD"),
+        userTime: "10:15pm",
+        partnerTime: "11:23pm"
+    };
   }
   console.log(dates);
   return dates;
   // console.log("OK");
+}
+
+// Get calendar data
+const getData = () => {
+    fetch('http://localhost:3001/', {
+        method: 'get',
+        headers: {
+            'content-type': 'application/json'
+        }
+    })
+    .then(response => response.json())
+    .then(data => console.log(data))
+    console.log("data");
+}
+
+// Get calendar data
+const sendData = () => {
+    fetch('http://localhost:3001/', {
+        method: 'post',
+        headers: {
+            'content-type': 'application/json'
+        },
+        body: JSON.stringify({
+            user: "",
+            date: "",
+            time: ""
+        })
+    })
+    .then(response => response.json())
+    .then(data => console.log(data))
+    console.log("data");
 }
 
 // Returns current time with am/pm suffix
@@ -36,18 +70,20 @@ const getTime = () => {
     hour = hour - 12;
     suffix = 'pm';
   }
-  const time = hour + ":" + minute;
+  const time = hour + ":" + minute + suffix;
 
   return time;
 }
 
 // Accepts: time in format: 8:20pm |
-// First hour to record sleep time |
-// last hour on display |
-// duration of hours on display |
-// if the final time on display ends at a half hour
 // Returns: width % for the days bar display
-const getBarWidth = (time, firstHour, lastHour, duration, halfHour, ) => {
+const getBarWidth = (time) => {
+    // Hard coded parameters to match the hours displayed on UI
+    const firstHour = 8;
+    const lastHour = 2;
+    const duration = 6.5;
+    const halfHour = true;
+
     const splitTime = time.split(":");
     const hour = splitTime[0];
     const rest = splitTime[1];
@@ -72,7 +108,7 @@ const getBarWidth = (time, firstHour, lastHour, duration, halfHour, ) => {
             return 100;
     }
     const min = minute / 60;
-    const hr = hour - 9;
+    const hr = hour - firstHour;
     const width = (hr + min) / duration * 100;
     console.log(width);
 
