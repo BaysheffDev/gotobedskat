@@ -2,13 +2,33 @@ import React, { useState } from 'react';
 import moment from 'moment';
 import { getTime, getBarWidth } from './helpers.js';
 
-const Today = ({ partnerTime}) => {
+const Today = ({ partnerTime }) => {
     const [entered, setEntered] = useState(false);
     const [leftBarWidth, setLeftBarWidth] = useState(5);
-    const [rightBarWidth] = useState(5);
+    const [rightBarWidth] = useState(getBarWidth(partnerTime));
     const [today] = useState(moment().format("ddd DD-MM"));
     const [time, setTime] = useState();
+    // const [count, setCount] = useState(0);
 
+    const updateDay = () => {
+        setEntered(true);
+        setTime(getTime());
+        setLeftBarWidth(getBarWidth(getTime()));
+        console.log("hey");
+    }
+
+    let count = 0;
+
+    const handelDoubleClick = () => {
+        count++;
+        setTimeout(() => {
+            if (count === 2) {
+                updateDay();
+            }
+            count = 0;
+            console.log("has a timeout");
+        }, 300);
+    }
 
     if (entered) {
         return (
@@ -18,18 +38,18 @@ const Today = ({ partnerTime}) => {
                     <div className="day-date-text">{today}</div>
                     <div className="day-time-right">{partnerTime}</div>
                 </div>
-              <div onClick={() => console.log("OK")} className="left">
+              <div onClick={() => handelDoubleClick()} className="left">
                 <div style={{background: "lightblue", width: `${leftBarWidth}%`}} className="day-level-left"></div>
               </div>
               <div className="right">
                 <div style={{background: "pink", width: `${rightBarWidth}%`}} className="day-level-right"></div>
               </div>
             </div>
-        )
+        );
     }
     else {
         return (
-            <div onClick={() => {setTime(getTime()); setEntered(true); setLeftBarWidth(getBarWidth(getTime()))}} className="today-container">
+            <div onClick={() => updateDay()} className="today-container">
                 <div className="today">Go to sleep Skat</div>
             </div>
         );

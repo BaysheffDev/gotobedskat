@@ -11,12 +11,15 @@
 }
 .day {
     width: 100%;
-    height: 50px;
+    height: 40px;
     margin-bottom: 5px;
     display: flex;
     justify-content: center;
     margin-top: 20px;
     position: relative;
+}
+.day-container {
+    width: 100%;
 }
 .day.day-today {
     background: #424242;
@@ -35,22 +38,28 @@
   height: 100%;
   margin-left: auto;
   border-radius: 50px 0px 0px 50px;
-  margin-right: 1px;
 }
 .day-level-right {
   height: 100%;
   border-radius: 0px 50px 50px 0px;
-  margin-left: 1px;
 }
 .left, .right {
     width: 50%;
     position: relative;
 }
+.right {
+    margin-left: 1px;
+}
+.left {
+    margin-right: 1px;
+}
 .day-time-left {
     color: lightblue;
+    font-weight: bold;
 }
 .day-time-right {
     color: pink;
+    font-weight: bold;
 }
 
 .today-container {

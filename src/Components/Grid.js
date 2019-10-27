@@ -2,12 +2,13 @@ import React, { useState, useEffect, useRef } from 'react';
 import moment from 'moment';
 import Day from './Day.js';
 import Today from './Today.js';
+import data from '../data.js';
 import {calendar} from './helpers.js';
 // import test2 from './helpers.js';
 
 const Grid = () => {
   // const [dates, setTodayDates] = useState(calendar(moment().format('YYYY-MM-DD')));
-  const [datesTimes] = useState(calendar('2019-01-16'));
+  const [datesTimes] = useState(data);
   const bottomRef = useRef(null);
 
   useEffect(() => {
