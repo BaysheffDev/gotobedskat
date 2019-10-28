@@ -8,7 +8,8 @@ import {calendar} from './helpers.js';
 
 const Grid = () => {
   // const [dates, setTodayDates] = useState(calendar(moment().format('YYYY-MM-DD')));
-  const [datesTimes] = useState(data);
+  const [datesTimes] = useState(data.sleepData);
+  const [userInfo] = useState(data.userInfoData);
   const bottomRef = useRef(null);
 
   useEffect(() => {
@@ -37,12 +38,13 @@ const Grid = () => {
           =
         </div>
       </div>
+      <div className="day beginning-component"><div className="beginning-component-left">Alex</div> <div> | </div> <div className="beginning-component-right">Celeste</div></div>
         {datesTimes.map((dateTime, key) =>
           <div className="day-container" key={key}>
-            <Day dateTime={dateTime} />
+            <Day dateTime={dateTime} userColor={userInfo.userColor} partnerColor={userInfo.partnerColor} />
           </div>
         )}
-        {moment().hour() > 5 && moment().hour() < 18 ? "" : <Today partnerTime={"12:30am"} />}
+        {moment().hour() > 5 && moment().hour() < 18 ? "" : <Today userTime={"11:10pm"} partnerTime={"12:30am"} userColor={userInfo.userColor} partnerColor={userInfo.partnerColor} />}
         <div ref={bottomRef} className="footer-spacer"></div>
     </div>
   );

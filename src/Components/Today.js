@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import moment from 'moment';
 import { getTime, getBarWidth } from './helpers.js';
 
-const Today = ({ partnerTime }) => {
-    const [entered, setEntered] = useState(false);
-    const [leftBarWidth, setLeftBarWidth] = useState(5);
+const Today = ({ userTime, partnerTime, userColor, partnerColor }) => {
+    const [entered, setEntered] = useState(userTime);
+    const [leftBarWidth, setLeftBarWidth] = useState(userTime ? getBarWidth(userTime) : 5);
     const [rightBarWidth] = useState(getBarWidth(partnerTime));
     const [today] = useState(moment().format("ddd DD-MM"));
     const [time, setTime] = useState();
@@ -34,15 +34,15 @@ const Today = ({ partnerTime }) => {
         return (
             <div className="day day-today">
                 <div className="day-date">
-                    <div className="day-time-left">{time}</div>
+                    <div style={{color: `${userColor}`}}>{userTime}</div>
                     <div className="day-date-text">{today}</div>
-                    <div className="day-time-right">{partnerTime}</div>
+                    <div style={{color: `${partnerColor}`}}>{partnerTime}</div>
                 </div>
               <div onClick={() => handelDoubleClick()} className="left">
-                <div style={{background: "lightblue", width: `${leftBarWidth}%`}} className="day-level-left"></div>
+                <div style={{background: `${userColor}`, width: `${leftBarWidth}%`}} className="day-level-left"></div>
               </div>
               <div className="right">
-                <div style={{background: "pink", width: `${rightBarWidth}%`}} className="day-level-right"></div>
+                <div style={{background: `${partnerColor}`, width: `${rightBarWidth}%`}} className="day-level-right"></div>
               </div>
             </div>
         );
@@ -50,7 +50,7 @@ const Today = ({ partnerTime }) => {
     else {
         return (
             <div onClick={() => updateDay()} className="today-container">
-                <div className="today">Go to sleep Skat</div>
+                <div className="today">Go to bed Skat</div>
             </div>
         );
     }

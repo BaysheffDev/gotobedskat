@@ -22,7 +22,8 @@
     width: 100%;
 }
 .day.day-today {
-    background: #424242;
+    background: linear-gradient(180deg, #424242, black, #424242);
+    padding: 5px 0;
 }
 .day-date {
     position: absolute;
@@ -52,14 +53,6 @@
 }
 .left {
     margin-right: 1px;
-}
-.day-time-left {
-    color: lightblue;
-    font-weight: bold;
-}
-.day-time-right {
-    color: pink;
-    font-weight: bold;
 }
 
 .today-container {
@@ -123,4 +116,16 @@
     font-size: 2.5em;
     color: lightblue;
     transform: translateY(-6px);
+}
+.beginning-component {
+    color: white;
+}
+.beginning-component-left {
+    width: 100px;
+    margin-right: 5px;
+    text-align: right;
+}
+.beginning-component-right {
+    width: 100px;
+    margin-left: 5px;
 }

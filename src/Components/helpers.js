@@ -26,6 +26,10 @@ const calendar = (startDate) => {
   // console.log("OK");
 }
 
+
+// If moment().hour() < 6am stop data at 2 days before
+// If momnent().hour() > 5am stop data at yesterday
+
 // Get calendar data
 const getData = () => {
     fetch('http://localhost:3001/', {
@@ -38,6 +42,9 @@ const getData = () => {
     .then(data => console.log(data))
     console.log("data");
 }
+
+// If moment().hour() <= 23 set Today
+// If moment().hour() >= 0 set Yesterday
 
 // Get calendar data
 const sendData = () => {
