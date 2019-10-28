@@ -38,13 +38,17 @@ const Grid = () => {
           =
         </div>
       </div>
-      <div className="day beginning-component"><div className="beginning-component-left">Alex</div> <div> | </div> <div className="beginning-component-right">Celeste</div></div>
+      <div className="day beginning-component">
+          <div style={{color: `${userInfo.userColor}`}} className="beginning-component-left">{userInfo.userName}</div>
+          <div> | </div>
+          <div style={{color: `${userInfo.partnerColor}`}} className="beginning-component-right">{userInfo.partnerName}</div>
+      </div>
         {datesTimes.map((dateTime, key) =>
           <div className="day-container" key={key}>
             <Day dateTime={dateTime} userColor={userInfo.userColor} partnerColor={userInfo.partnerColor} />
           </div>
         )}
-        {moment().hour() > 5 && moment().hour() < 18 ? "" : <Today userTime={"11:10pm"} partnerTime={"12:30am"} userColor={userInfo.userColor} partnerColor={userInfo.partnerColor} />}
+        {moment().hour() > 5 && moment().hour() < 18 ? "" : <Today userTime={""} partnerTime={"12:30am"} userColor={userInfo.userColor} partnerColor={userInfo.partnerColor} />}
         <div ref={bottomRef} className="footer-spacer"></div>
     </div>
   );
