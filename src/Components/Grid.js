@@ -33,7 +33,7 @@ const Grid = () => {
         </div>
       </div>
       <div className="header-spacer"></div>
-      <div className="menu-button">
+      <div onClick={() => console.log("Menu button clicked")} className="menu-button">
         <div className="menu-button-icon">
           =
         </div>
