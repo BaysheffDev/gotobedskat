@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import moment from 'moment';
 import Day from './Day.js';
 import Today from './Today.js';
+import Sidemenu from './Sidemenu.js';
 import data from '../data.js';
 import {calendar} from './helpers.js';
 // import test2 from './helpers.js';
@@ -10,14 +11,25 @@ const Grid = () => {
   // const [dates, setTodayDates] = useState(calendar(moment().format('YYYY-MM-DD')));
   const [datesTimes] = useState(data.sleepData);
   const [userInfo] = useState(data.userInfoData);
+  const [sideMenu, setSideMenu] = useState(false);
   const bottomRef = useRef(null);
 
   useEffect(() => {
       bottomRef.current.scrollIntoView();
   });
 
+  const toggleSideMenu = () => {
+      setSideMenu(!sideMenu);
+  }
+
   return (
     <div className="container">
+        <div onClick={() => toggleSideMenu()} className="menu-button">
+          <div className="menu-button-icon">
+            =
+          </div>
+        </div>
+        <Sidemenu slide={sideMenu} toggleSideMenu={toggleSideMenu} />
       <div className="header">
         <div className="header-hours">
           {['2am', '1am', '12am', '11pm', '10pm', '9pm', '8pm', '9pm', '10pm', '11pm', '12pm', '1am', '2am'].map((hour, key) =>
@@ -33,11 +45,6 @@ const Grid = () => {
         </div>
       </div>
       <div className="header-spacer"></div>
-      <div onClick={() => console.log("Menu button clicked")} className="menu-button">
-        <div className="menu-button-icon">
-          =
-        </div>
-      </div>
       <div className="day beginning-component">
           <div style={{color: `${userInfo.userColor}`}} className="beginning-component-left">{userInfo.userName}</div>
           <div> | </div>

@@ -11,14 +11,11 @@ const Today = ({ userTime, partnerTime, userColor, partnerColor }) => {
     // const [count, setCount] = useState(0);
 
     const updateDay = () => {
-        setEntered(true);
-        setTime(getTime());
+        setEntered(getTime());
         setLeftBarWidth(getBarWidth(getTime()));
-        console.log("hey");
     }
 
     let count = 0;
-
     const handelDoubleClick = () => {
         count++;
         setTimeout(() => {
@@ -26,7 +23,6 @@ const Today = ({ userTime, partnerTime, userColor, partnerColor }) => {
                 updateDay();
             }
             count = 0;
-            console.log("has a timeout");
         }, 300);
     }
 
@@ -34,7 +30,7 @@ const Today = ({ userTime, partnerTime, userColor, partnerColor }) => {
         return (
             <div className="day day-today">
                 <div className="day-date">
-                    <div style={{color: `${userColor}`}}>{userTime}</div>
+                    <div style={{color: `${userColor}`}}>{entered}</div>
                     <div className="day-date-text">{today}</div>
                     <div style={{color: `${partnerColor}`}}>{partnerTime}</div>
                 </div>
