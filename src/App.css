@@ -161,3 +161,142 @@
     left: 100%;
     transition: left 0.2s linear;
 }
+
+/* Login Section */
+.login-container {
+    height: 100%;
+    width: 100%;
+    color: white;
+}
+.app-title {
+    padding-top: 30px;
+    color: pink;
+    text-align: center;
+    font-size: 1.2em;
+    width: 70%;
+    margin: auto;
+    border-radius: 0px;
+}
+.app-title-underline {
+    box-shadow: 0px -11px 14px -10px pink;
+    border-radius: 50%;
+    height: 35px;
+    width: 180px;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 50px;
+}
+.app-title img {
+    width: 65px;
+    transform: translateY(15px);
+}
+.login-field {
+    display: block;
+    margin: auto;
+    margin-top: 20px;
+    padding: 0 12px;
+    border-radius: 20px;
+    border: none;
+    width: 220px;
+    text-align: center;
+    background: none;
+    box-shadow: 0px 0px 12px -1px inset pink;
+    color: white;
+    height: 40px;
+}
+.login-field:focus {
+    background: pink;
+}
+.login-buttons {
+    position: absolute;
+    bottom: 0;
+    margin: auto;
+    margin-top: 50px;
+    width: 100%;
+}
+.login-buttons button {
+    width: 50%;
+    height: 40px;
+    background: no-repeat;
+    border: none;
+    color: grey;
+}
+button.login-button-left {
+    color: pink;
+    box-shadow: 50px 0px 50px -40px inset pink;
+}
+button.login-button-right {
+    color: pink;
+    box-shadow: -50px 0px 50px -40px inset pink;
+}
+.login-submit-container {
+    text-align: center;
+    margin-top: 70px;
+}
+.login-submit-container button {
+    box-shadow: 8px -2px 8px -1px inset lightblue;
+    border: none;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    padding: 0px;
+    background: none;
+    animation-name: glow;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    color: rgba(173, 216, 230, 0.5);
+    font-size: 0.6em;
+    margin: 0px 10px;
+}
+.login-submit-button.plus, .login-submit-button.back{
+    font-size: 1.2em;
+}
+@keyframes glow {
+    0% {box-shadow: 8px -2px 10px -4px inset lightblue;}
+    50% {box-shadow: 8px -2px 6px 2px inset lightblue;}
+    100% {box-shadow: 8px -2px 10px -4px inset lightblue;}
+}
+.login-submit-container button:focus {
+    border: 1px solid lightblue;
+}
+input:focus, button:focus {
+    outline: none;
+}
+.login-partner-message {
+    text-align: center;
+    color: lightblue;
+}
+.login-message-container {
+    margin-top: 60px;
+    text-align: center;
+    color: #c70000;
+    font-weight: bold;
+    font-size: 0.8em;
+}
+.login-colors-container {
+    margin-top: 20px;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+.login-color {
+    width: 40px;
+    height: 40px;
+    margin: 0 10px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.login-color-inner {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+}
+.login-color-inner.color-one {
+    background: lightblue;
+}
+.login-color-inner.color-two {
+    background: pink;
+}
