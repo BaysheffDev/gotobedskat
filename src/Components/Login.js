@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import stars from '../Assets/stars.gif';
+import { userSignin } from './requests.js';
 
 const Login = () => {
     const [screen, setScreen] = useState(0);
@@ -35,23 +36,8 @@ const Login = () => {
             }
             else {
                 const usercolor = userColor(color);
-                const userSignin = (endpoint) => {
-                    fetch(`http://localhost:3001/${endpoint}`, {
-                        method: 'post',
-                        headers: {
-                            'content-type': 'application/json',
-                        },
-                        body: JSON.stringify({
-                            username: username,
-                            usercode: usercode,
-                            usercolor: usercolor,
-                        })
-                    })
-                    .then(response => response.json())
-                    .then(data => console.log(data))
-                    .catch(err => console.log(err))
-                }
-                userSignin('createuser');
+                const thing = userSignin('createuser', username, usercode, usercolor);
+                console.log("THE RESULTS: ", thing);
                 setMessage("");
                 setScreen(1);
             }
