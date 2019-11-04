@@ -26,7 +26,7 @@ const Login = () => {
         }
     }
 
-    const submitForm = (screen) => {
+    const submitForm = async (screen) => {
         if (screen === 0) {
             if (username.length < 3 && usercode.length < 3) {
                 setMessage("Fields must be at least 3 characters");
@@ -36,7 +36,7 @@ const Login = () => {
             }
             else {
                 const usercolor = userColor(color);
-                const thing = userSignin('createuser', username, usercode, usercolor);
+                const thing = await userSignin('createuser', username, usercode, usercolor);
                 console.log("THE RESULTS: ", thing);
                 setMessage("");
                 setScreen(1);

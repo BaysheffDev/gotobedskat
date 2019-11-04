@@ -13,7 +13,10 @@ const userSignin = (endpoint, username, usercode, usercolor) => {
         })
     })
     .then(response => response.json())
-    .then(data => console.log(data))
+    .then(data => {
+      console.log(data);
+      return data;
+    })
     .catch(err => console.log(err))
 }
 
