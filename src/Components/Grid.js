@@ -7,7 +7,7 @@ import data from '../data.js';
 import {calendar} from './helpers.js';
 // import test2 from './helpers.js';
 
-const Grid = () => {
+const Grid = ({ logout }) => {
   // const [dates, setTodayDates] = useState(calendar(moment().format('YYYY-MM-DD')));
   const [datesTimes] = useState(data.sleepData);
   const [userInfo] = useState(data.userInfoData);
@@ -29,7 +29,7 @@ const Grid = () => {
             =
           </div>
         </div>
-        <Sidemenu slide={sideMenu} toggleSideMenu={toggleSideMenu} />
+        <Sidemenu slide={sideMenu} toggleSideMenu={toggleSideMenu} logout={logout} />
       <div className="header">
         <div className="header-hours">
           {['2am', '1am', '12am', '11pm', '10pm', '9pm', '8pm', '9pm', '10pm', '11pm', '12pm', '1am', '2am'].map((hour, key) =>

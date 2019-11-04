@@ -153,6 +153,7 @@
     z-index: 1;
     position: absolute;
     left: 0%;
+    transition: left 0.2s linear;
 }
 .overlay-open {
     left: 100%;
@@ -160,6 +161,65 @@
 .sidemenu-open {
     left: 100%;
     transition: left 0.2s linear;
+}
+.sidemenu-bottom-note {
+    position: absolute;
+    bottom: 0;
+    margin: 0px 0px 5px 5px;
+    color: lightblue;
+    font-size: 0.8em;
+    font-style: italic;
+}
+.sidemenu-field-container {
+    padding: 10px 20px;
+}
+.sidemenu-field-container:first-child {
+    margin-top: 20px;
+}
+.sidemenu-field-label {
+    margin-bottom: 5px;
+    color: #bdbdbd;
+    font-size: 0.9em;
+}
+.sidemenu-input-container {
+    display: flex;
+    height: 30px;
+}
+.sidemenu-input-container input {
+    display: flex;
+    width: 70%;
+    border: none;
+    border-radius: 20px 0px 0px 20px;
+    padding: 7px;
+}
+.sidemenu-input-container button {
+   border-radius: 0px 20px 20px 0px;
+   border: none;
+   background: linear-gradient(210deg, #290000, #ad0000);
+   font-size: 0.7em;
+   color: white;
+}
+.sidemenu-field-container .login-colors-container {
+    margin-top: 0;
+}
+.sidemenu-field-container .login-color {
+    margin: -2px 10px;
+    width: 30px;
+    height: 30px;
+}
+.sidemenu-field-container .login-color-inner {
+    height: 18px;
+    width: 18px;
+}
+.logout-button {
+    width: 100%;
+    border-radius: 50px;
+    height: 20px;
+    background: linear-gradient(210deg, #290000, #ad0000);
+    color: white;
+    border: none;
+    margin-top: 20px;
+    font-size: 0.7em;
 }
 
 /* Login Section */
@@ -234,7 +294,6 @@ button.login-button-right {
     margin-top: 70px;
 }
 .login-submit-container button {
-    box-shadow: 8px -2px 8px -1px inset lightblue;
     border: none;
     width: 55px;
     height: 55px;
@@ -242,7 +301,7 @@ button.login-button-right {
     padding: 0px;
     background: none;
     animation-name: glow;
-    animation-duration: 3s;
+    animation-duration: 4s;
     animation-iteration-count: infinite;
     animation-timing-function: linear;
     color: rgba(173, 216, 230, 0.5);
@@ -253,9 +312,9 @@ button.login-button-right {
     font-size: 1.2em;
 }
 @keyframes glow {
-    0% {box-shadow: 8px -2px 10px -4px inset lightblue;}
-    50% {box-shadow: 8px -2px 6px 2px inset lightblue;}
-    100% {box-shadow: 8px -2px 10px -4px inset lightblue;}
+    0% {box-shadow: 8px -2px 10px -5px inset lightblue;}
+    50% {box-shadow: 8px -2px 8px 3px inset lightblue;}
+    100% {box-shadow: 8px -2px 10px -5px inset lightblue;}
 }
 .login-submit-container button:focus {
     border: 1px solid lightblue;
