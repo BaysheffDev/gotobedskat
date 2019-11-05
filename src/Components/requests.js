@@ -2,7 +2,7 @@ const baseUrl = 'http://localhost:3001/';
 
 // Login or create new user
 const userRequest = (endpoint, username, usercode, usercolor) => {
-    return fetch(`http://localhost:3001/${endpoint}`, {
+    return fetch(`${baseUrl}${endpoint}`, {
         method: 'post',
         headers: {
             'content-type': 'application/json',
@@ -22,13 +22,14 @@ const userRequest = (endpoint, username, usercode, usercolor) => {
 }
 
 // Sync with partner
-const partnerRequest = (partnername, partnercode) => {
-    return fetch(`http://localhost:3001/sync`, {
+const partnerRequest = (userid, partnername, partnercode) => {
+    return fetch(`${baseUrl}sync`, {
         method: 'post',
         headers: {
             'content-type': 'application/json',
         },
         body: JSON.stringify({
+            userid: userid,
             partnername: partnername,
             partnercode: partnercode,
         })
@@ -41,7 +42,27 @@ const partnerRequest = (partnername, partnercode) => {
     .catch(err => console.log(err))
 }
 
+// Unsync with partner
+const unsyncPartner = (userid) => {
+    return fetch(`${baseUrl}unsync`, {
+        method: 'post',
+        headers: {
+            'content-type': 'application/json',
+        },
+        body: JSON.stringify({
+            userid: userid,
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+      return data;
+    })
+    .catch(err => console.log(err))
+}
+
 export {
   userRequest,
-  partnerRequest
+  partnerRequest,
+  unsyncPartner
 }
