@@ -87,28 +87,12 @@ const Login = ({ openGrid }) => {
         }
     }
 
-    const syncPartner = () => {
-        const partnerSynced = false;
-        if (partnerSynced) {
-            console.log("sync complete go to main screen");
-        }
-        else {
-            console.log("nope");
-        }
-        console.log("sync partner");
-    }
-
     const unsync = async () => {
         const response = await unsyncPartner(localStorage.getItem("userId"));
         if (response.success) {
             localStorage.removeItem("partnerName");
             setScreen(1);
         }
-    }
-
-    const dontSync = () => {
-        console.log("dont sync");
-        setScreen(screen - 1);
     }
 
     return (
