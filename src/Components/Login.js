@@ -1,25 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import stars from '../Assets/stars.gif';
 import {
     userRequest,
     partnerRequest,
-    unsyncPartner
+    unsyncPartner,
+    checkSync
 } from './requests.js';
-import { userColor } from './helpers.js';
+import { userColor, startScreen } from './helpers.js';
 
 const Login = ({ openGrid }) => {
-    const startScreen = () => {
-        if (localStorage.getItem("userId") && localStorage.getItem("partnerName")) {
-            return 2;
-        }
-        else if (localStorage.getItem("userId")) {
-            return 1;
-        }
-        else {
-            return 0;
-        }
-    }
-    const [screen, setScreen] = useState(startScreen);
+    const [screen, setScreen] = useState(startScreen());
     const [login, setLogin] = useState(true);
     const [username, setUsername] = useState("");
     const [usercode, setUsercode] = useState("");
@@ -28,6 +18,26 @@ const Login = ({ openGrid }) => {
     const [syncedpartnername, setSyncedpartnername] = useState("");
     const [message, setMessage] = useState("");
     const [color, setColor] = useState("");
+    const [count, setCount] = useState(0);
+
+    // if (screen === 2) {
+    //   let count = 0;
+    //   while(true) {
+    //     setTimeout(function() {
+    //       console.log("Counting ", count);
+    //       count++;
+    //     }, 1000);
+    //   }
+    // }
+    useEffect(() => {
+      if (screen === 2) {
+        setTimeout(async () => {
+          const response = await checkSync('checksync', localStorage.getItem("userId"));
+          console.log(count + " " + JSON.stringify(response));
+          setCount(count + 1);
+        }, 10000);
+      }
+    })
 
     const validateUser = async () => {
         const usercolor = userColor(color);

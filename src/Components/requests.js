@@ -21,6 +21,24 @@ const userRequest = (endpoint, username, usercode, usercolor) => {
     .catch(err => console.log(err))
 }
 
+const checkSync = (endpoint, userid) => {
+    return fetch(`${baseUrl}${endpoint}`, {
+        method: 'post',
+        headers: {
+            'content-type': 'application/json',
+        },
+        body: JSON.stringify({
+            userid: userid,
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+      return data;
+    })
+    .catch(err => console.log(err))
+}
+
 // Sync with partner
 const partnerRequest = (userid, partnername, partnercode) => {
     return fetch(`${baseUrl}sync`, {
@@ -64,5 +82,6 @@ const unsyncPartner = (userid) => {
 export {
   userRequest,
   partnerRequest,
-  unsyncPartner
+  unsyncPartner,
+  checkSync
 }

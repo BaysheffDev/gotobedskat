@@ -136,10 +136,24 @@ const userColor = (color) => {
     }
 }
 
+// Determin starting screen for login workflow
+const startScreen = () => {
+    if (localStorage.getItem("userId") && localStorage.getItem("partnerName")) {
+        return 2;
+    }
+    else if (localStorage.getItem("userId")) {
+        return 1;
+    }
+    else {
+        return 0;
+    }
+}
+
 
 export {
   calendar,
   getTime,
   getBarWidth,
-  userColor
+  userColor,
+  startScreen
 }
