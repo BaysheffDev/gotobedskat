@@ -6,8 +6,7 @@ import Login from './Components/Login.js';
 const App = () => {
     const [loggedIn, setLoggedIn] = useState(localStorage.getItem("userId") && localStorage.getItem("partnerId") ? true : false);
 
-    const login = (id) => {
-        localStorage.setItem("userId", id);
+    const login = () => {
         setLoggedIn(true);
     }
     const logout = () => {

@@ -5,18 +5,39 @@ import Today from './Today.js';
 import Sidemenu from './Sidemenu.js';
 import data from '../data.js';
 import {calendar} from './helpers.js';
-// import test2 from './helpers.js';
+import {
+    unsyncPartner,
+    checkSync
+} from './requests.js';
 
 const Grid = ({ logout }) => {
   // const [dates, setTodayDates] = useState(calendar(moment().format('YYYY-MM-DD')));
   const [datesTimes] = useState(data.sleepData);
   const [userInfo] = useState(data.userInfoData);
+
+  const [userName, setUserName] = useState(localStorage.getItem("userName"));
+  const [userCode, setUserCode] = useState(localStorage.getItem("userCode"));
+  const [userColor, setUserColor] = useState(localStorage.getItem("userColor"));
+  const [partnerName, setPartnerName] = useState(localStorage.getItem("partnerName"));
+  const [partnerColor, setPartnerColor] = useState(localStorage.getItem("partnerColor"));
+
   const [sideMenu, setSideMenu] = useState(false);
   const bottomRef = useRef(null);
 
   useEffect(() => {
       bottomRef.current.scrollIntoView();
+      console.log("OKOK");
+      checkStillSynced();
   });
+
+  const checkStillSynced = async () => {
+      const response = await checkSync('checksync', localStorage.getItem("userId"));
+      console.log(JSON.stringify(response));
+      console.log("yep");
+      if (!response.success) {
+          logout();
+      }
+  }
 
   const toggleSideMenu = () => {
       setSideMenu(!sideMenu);
@@ -46,16 +67,16 @@ const Grid = ({ logout }) => {
       </div>
       <div className="header-spacer"></div>
       <div className="day beginning-component">
-          <div style={{color: `${userInfo.userColor}`}} className="beginning-component-left">{userInfo.userName}</div>
+          <div style={{color: `${userColor}`}} className="beginning-component-left">{userName}</div>
           <div> | </div>
-          <div style={{color: `${userInfo.partnerColor}`}} className="beginning-component-right">{userInfo.partnerName}</div>
+          <div style={{color: `${partnerColor}`}} className="beginning-component-right">{partnerName}</div>
       </div>
         {datesTimes.map((dateTime, key) =>
           <div className="day-container" key={key}>
-            <Day dateTime={dateTime} userColor={userInfo.userColor} partnerColor={userInfo.partnerColor} />
+            <Day dateTime={dateTime} userColor={userColor} partnerColor={partnerColor} />
           </div>
         )}
-        {moment().hour() > 5 && moment().hour() < 18 ? "" : <Today userTime={""} partnerTime={"12:30am"} userColor={userInfo.userColor} partnerColor={userInfo.partnerColor} />}
+        {moment().hour() > 5 && moment().hour() < 18 ? "" : <Today userTime={""} partnerTime={"12:30am"} userColor={userColor} partnerColor={partnerColor} />}
         <div ref={bottomRef} className="footer-spacer"></div>
     </div>
   );

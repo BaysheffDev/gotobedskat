@@ -20,24 +20,25 @@ const Login = ({ openGrid }) => {
     const [color, setColor] = useState("");
     const [count, setCount] = useState(0);
 
-    // if (screen === 2) {
-    //   let count = 0;
-    //   while(true) {
-    //     setTimeout(function() {
-    //       console.log("Counting ", count);
-    //       count++;
-    //     }, 1000);
-    //   }
-    // }
     useEffect(() => {
       if (screen === 2) {
-        setTimeout(async () => {
-          const response = await checkSync('checksync', localStorage.getItem("userId"));
-          console.log(count + " " + JSON.stringify(response));
-          setCount(count + 1);
-        }, 10000);
+        // Check if partner has synced back every 10 seconds
+        // setTimeout(async () => {
+        //   const response = await checkSync('checksync', localStorage.getItem("userId"));
+        //   console.log(count + " " + JSON.stringify(response));
+        //   setCount(count + 1);
+        // }, 10000);
+        checkPartnerSync();
       }
     })
+
+    const checkPartnerSync = async () => {
+        const response = await checkSync('checksync', localStorage.getItem("userId"));
+        if (response.success) {
+            localStorage.setItem("partnerId", response.partnerid);
+            openGrid();
+        }
+    }
 
     const validateUser = async () => {
         const usercolor = userColor(color);
@@ -54,27 +55,39 @@ const Login = ({ openGrid }) => {
                 setMessage("Invalid Credentials");
             }
             else {
+                let logIntoGrid = false;
                 if (!response.userinfo.partnerid) {
-                    localStorage.setItem("userId", response.userinfo.id);
                     setScreen(1);
                 }
-                else if (response.partnerinfo.id) {
-                    localStorage.setItem("userId", response.userinfo.id);
-                    localStorage.setItem("partnerName", response.partnerinfo.username);
-                    localStorage.setItem("partnerid", response.userinfo.partnerid);
-                    openGrid(response.userinfo.userid);
+                else if (response.partnerinfo.partnerid === response.userinfo.id) {
+                    logIntoGrid = true;
                 }
                 else {
-                    localStorage.setItem("userId", response.userinfo.id);
-                    localStorage.setItem("partnerName", response.partnerinfo);
-                    setPartnername(response.partnerinfo);
+                    localStorage.setItem("partnerName", response.partnerinfo.username);
+                    localStorage.setItem("partnerColor", response.partnerinfo.usercolor);
+                    setPartnername(response.partnerinfo.username);
                     setScreen(2);
+                }
+                localStorage.setItem("userId", response.userinfo.id);
+                localStorage.setItem("userName", response.userinfo.username);
+                localStorage.setItem("userColor", response.userinfo.usercolor);
+                localStorage.setItem("userCode", response.userinfo.usercode);
+                setMessage("");
+                if (logIntoGrid) {
+                    localStorage.setItem("partnerId", response.partnerinfo.partnerid);
+                    localStorage.setItem("partnerName", response.partnerinfo.username);
+                    localStorage.setItem("partnerColor", response.partnerinfo.usercolor);
+                    openGrid(response.userinfo.userid);
                 }
             }
         }
         else {
             // Create User
             const response = await userRequest('createuser', username, usercode, usercolor);
+            localStorage.setItem("userId", response.id);
+            localStorage.setItem("userName", response.username);
+            localStorage.setItem("userCode", response.usercode);
+            setScreen(1);
         }
     }
 
@@ -84,15 +97,14 @@ const Login = ({ openGrid }) => {
         }
         else {
             const response = await partnerRequest(localStorage.getItem("userId"), partnername, partnercode);
-            console.log(response);
             if (!response.success) {
                 setMessage("Partner not found");
             }
             else {
+                localStorage.setItem("partnerId", response.partnerinfo.id);
                 localStorage.setItem("partnerName", response.partnerinfo.username);
-
-                    response.partnerinfo.partnerid == localStorage.getItem("userId") ? openGrid() : setScreen(2);
-
+                localStorage.setItem("partnerColor", response.partnerinfo.usercolor);
+                response.partnerinfo.partnerid == localStorage.getItem("userId") ? openGrid() : setScreen(2);
             }
         }
     }

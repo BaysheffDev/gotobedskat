@@ -221,6 +221,9 @@
     margin-top: 20px;
     font-size: 0.7em;
 }
+.sidemenu-field-container button {
+    box-shadow: 0px 1px 5px -1px pink;
+}
 
 /* Login Section */
 .login-container {
