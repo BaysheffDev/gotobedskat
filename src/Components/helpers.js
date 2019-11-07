@@ -123,7 +123,7 @@ const getBarWidth = (time) => {
 }
 
 // Return name of color corresponding to input number
-const userColor = (color) => {
+const getColor = (color) => {
     switch(color) {
         case 1:
             return "lightblue"
@@ -154,6 +154,6 @@ export {
   calendar,
   getTime,
   getBarWidth,
-  userColor,
-  startScreen
+  getColor,
+  startScreen,
 }

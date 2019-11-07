@@ -6,7 +6,7 @@ import {
     unsyncPartner,
     checkSync
 } from './requests.js';
-import { userColor, startScreen } from './helpers.js';
+import { getColor, startScreen } from './helpers.js';
 
 const Login = ({ openGrid }) => {
     const [screen, setScreen] = useState(startScreen());
@@ -41,7 +41,7 @@ const Login = ({ openGrid }) => {
     }
 
     const validateUser = async () => {
-        const usercolor = userColor(color);
+        const usercolor = getColor(color);
         if (username.length < 3 && usercode.length < 3) {
             setMessage("Fields must be at least 3 characters");
         }
@@ -119,7 +119,7 @@ const Login = ({ openGrid }) => {
 
     return (
             <div className="login-container">
-                <div onClick={() => userColor(1)} className="app-title"><img src={stars}/>GoToBedSkat<img src={stars}/></div>
+                <div onClick={() => getColor(1)} className="app-title"><img src={stars}/>GoToBedSkat<img src={stars}/></div>
                 <div className="app-title-underline"></div>
                 <input onChange={(e) => setUsername(e.target.value)} style={{display: screen === 0 ? "" : "none"}} className="login-field" type="text" placeholder="username" />
                 <input onChange={(e) => setUsercode(e.target.value)} style={{display: screen === 0 ? "" : "none"}} className="login-field" type="text" placeholder="code" />

@@ -79,9 +79,29 @@ const unsyncPartner = (userid) => {
     .catch(err => console.log(err))
 }
 
+// Change a user setting
+const changeSettingRequest = (setting, value) => {
+    return fetch(`${baseUrl}update/${setting}`, {
+        method: 'post',
+        headers: {
+            'content-type': 'application/json',
+        },
+        body: JSON.stringify({
+            'setting': value,
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+      return data;
+    })
+    .catch(err => console.log(err))
+}
+
 export {
   userRequest,
   partnerRequest,
   unsyncPartner,
-  checkSync
+  checkSync,
+  changeSettingRequest
 }

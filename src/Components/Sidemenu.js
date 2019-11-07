@@ -1,7 +1,23 @@
 import React, { useState } from 'react';
+import { getColor } from './helpers.js';
+import { changeSettingRequest } from './requests.js';
 
-const Sidemenu = ({ slide, toggleSideMenu, logout }) => {
-    const [color, setColor] = useState("");
+const Sidemenu = ({ slide, toggleSideMenu, logout, userName, userCode, userColor, updateGridSetting }) => {
+    const [color, setColor] = useState(getColor(userColor));
+    const [message, setMessage] = useState("");
+
+    const changeSetting = async (setting, value) => {
+      let endpoint = setting;
+      if (setting === 'color') {
+        endpoint = getColor(color);
+      }
+      const request = await changeSettingRequest(setting, value);
+      if (request.success) {
+        localStorage.setItem(setting, request.setting);
+        updateGridSetting(setting, request.setting);
+        setMessage("Successfully updated setting");
+      }
+    }
 
     return (
         <div className="sidemenu-container">

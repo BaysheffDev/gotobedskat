@@ -43,6 +43,20 @@ const Grid = ({ logout }) => {
       setSideMenu(!sideMenu);
   }
 
+  const updateGridSetting = (setting, value) => {
+    switch(setting) {
+      case 'username':
+        setUserName(value);
+        break;
+      case 'usercode':
+        setUserCode(value);
+        break;
+      case 'usercolor':
+        setUserColor(value);
+        break;
+    }
+  }
+
   return (
     <div className="container">
         <div onClick={() => toggleSideMenu()} className="menu-button">
@@ -50,7 +64,15 @@ const Grid = ({ logout }) => {
             =
           </div>
         </div>
-        <Sidemenu slide={sideMenu} toggleSideMenu={toggleSideMenu} logout={logout} />
+        <Sidemenu
+          slide={sideMenu}
+          toggleSideMenu={toggleSideMenu}
+          logout={logout}
+          userName={userName}
+          userCode={userCode}
+          userColor={userColor}
+          updateGridSetting={updateGridSetting}
+        />
       <div className="header">
         <div className="header-hours">
           {['2am', '1am', '12am', '11pm', '10pm', '9pm', '8pm', '9pm', '10pm', '11pm', '12pm', '1am', '2am'].map((hour, key) =>
