@@ -168,11 +168,13 @@ const organizeGridData = (data) => {
             currentDate = moment(currentDate).add(1, 'days').format('YYYY-MM-DD');
         }
         const today = {"userTodayTime": "", "partnerTodayTime": ""};
-        if (moment(data.userData[data.userData.length - 1].date.split('T')[0]).isSame(moment(yesterday).add(1, 'days'))) {
-            today.userTodayTime = data.userData[data.userData.length - 1].date.bedtime;
+        const userLastDate = data.userData[data.userData.length - 1].date.split('T')[0];
+        const partnerLastDate = data.partnerData[data.partnerData.length - 1].date.split('T')[0];
+        if (moment(userLastDate).isSame(moment(yesterday).add(1, 'days'))) {
+            today.userTodayTime = data.userData[data.userData.length - 1].bedtime;
         }
-        if (moment(data.partnerData[data.partnerData.length - 1].date.split('T')[0]).isSame(moment(yesterday).add(1, 'days'))) {
-            today.partnerTodayTime = data.partnerData[data.partnerData.length - 1].date.bedtime;
+        if (moment(partnerLastDate).isSame(moment(yesterday).add(1, 'days'))) {
+            today.partnerTodayTime = data.partnerData[data.partnerData.length - 1].bedtime;
         }
         // setDateTimes(dateTimesArray);
         console.log("dateTimesArray: ", datesTimesArray);

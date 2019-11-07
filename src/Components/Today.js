@@ -5,8 +5,9 @@ import { sendBedtime } from './requests.js';
 
 const Today = ({ userTime, partnerTime, userColor, partnerColor }) => {
     const [entered, setEntered] = useState(userTime);
+    const [partnerEntered, setPartnerEntered] = useState(partnerTime);
     const [leftBarWidth, setLeftBarWidth] = useState(userTime ? getBarWidth(userTime) : 5);
-    const [rightBarWidth] = useState(getBarWidth(partnerTime));
+    const [rightBarWidth] = useState(partnerTime ? getBarWidth(partnerTime) : 5);
     const [today] = useState(moment().format("ddd DD-MM"));
     const [time, setTime] = useState();
 
