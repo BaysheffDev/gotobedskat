@@ -15,6 +15,9 @@ const Grid = ({ logout }) => {
   // const [dates, setTodayDates] = useState(calendar(moment().format('YYYY-MM-DD')));
   // const [datesTimes] = useState(data.sleepData);
   const [datesTimes, setDatesTimes] = useState([]);
+  const [userTime, setUserTime] = useState("");
+  const [partnerTime, setPartnerTime] = useState("");
+
   const [userInfo] = useState(data.userInfoData);
 
   const [userId] = useState(localStorage.getItem("userId"));
@@ -29,17 +32,26 @@ const Grid = ({ logout }) => {
   const bottomRef = useRef(null);
 
   useEffect(() => {
-      bottomRef.current.scrollIntoView();
-      console.log("OKOK");
       // checkStillSynced();
       const getGridData = async () => {
           const data = await requestGridData(userId, partnerId);
-          const datesTimesArray = organizeGridData(data);
-          !datesTimesArray ? logout() : setDatesTimes(datesTimesArray);
+          const dataArray = organizeGridData(data);
+          if (dataArray) {
+              setDatesTimes(dataArray.datesTimesArray);
+              setUserTime(dataArray.today.userTodayTime);
+              setPartnerTime(dataArray.today.partnerTodayTime);
+          }
+          else {
+              logout();
+          }
         }
       getGridData();
       // requests();
   }, []);
+
+  useEffect(() => {
+      bottomRef.current.scrollIntoView();
+  }, [datesTimes]);
 
   // const checkStillSynced = async () => {
   //     const response = await checkSync('checksync', localStorage.getItem("userId"));
@@ -118,7 +130,7 @@ const Grid = ({ logout }) => {
             <Day dateTime={dateTime} userColor={userColor} partnerColor={partnerColor} />
           </div>
         )}
-        {moment().hour() > 5 && moment().hour() < 18 ? "" : <Today userTime={""} partnerTime={"12:30am"} userColor={userColor} partnerColor={partnerColor} />}
+        {moment().hour() > 5 && moment().hour() < 18 ? "" : <Today userTime={userTime} partnerTime={partnerTime} userColor={userColor} partnerColor={partnerColor} />}
         <div ref={bottomRef} className="footer-spacer"></div>
     </div>
   );

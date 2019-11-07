@@ -122,11 +122,39 @@ const requestGridData = (userid, partnerid) => {
     .catch(err => console.log(err))
 }
 
+// Send bedtime
+const sendBedtime = (userid, partnerid, date, time, message) => {
+    console.log(userid);
+    console.log(partnerid);
+    console.log(date);
+    console.log(time);
+    // console.log(userid);
+    return fetch(`${baseUrl}bedtime`, {
+        method: 'post',
+        headers: {
+            'content-type': 'application/json',
+        },
+        body: JSON.stringify({
+            'uiserid': userid,
+            'partnerid': partnerid,
+            'date': date,
+            'time': time,
+            'message': message,
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+      return data;
+    })
+}
+
 export {
   userRequest,
   partnerRequest,
   unsyncPartner,
   checkSync,
   changeSettingRequest,
-  requestGridData
+  requestGridData,
+  sendBedtime
 }

@@ -26,44 +26,6 @@ const calendar = (startDate) => {
   // console.log("OK");
 }
 
-
-// If moment().hour() < 6am stop data at 2 days before
-// If momnent().hour() > 5am stop data at yesterday
-
-// Get calendar data
-const getData = () => {
-    fetch('http://localhost:3001/', {
-        method: 'get',
-        headers: {
-            'content-type': 'application/json'
-        }
-    })
-    .then(response => response.json())
-    .then(data => console.log(data))
-    console.log("data");
-}
-
-// If moment().hour() <= 23 set Today
-// If moment().hour() >= 0 set Yesterday
-
-// Get calendar data
-const sendData = () => {
-    fetch('http://localhost:3001/', {
-        method: 'post',
-        headers: {
-            'content-type': 'application/json'
-        },
-        body: JSON.stringify({
-            user: "",
-            date: "",
-            time: ""
-        })
-    })
-    .then(response => response.json())
-    .then(data => console.log(data))
-    console.log("data");
-}
-
 // Returns current time with am/pm suffix
 const getTime = () => {
   let hour = moment().hour();
@@ -165,19 +127,28 @@ const organizeGridData = (data) => {
         return false;
     }
     else {
+        let yesterday = moment().format('YYYY-MM-DD');
         const userStartDate = data.userData[0].date.split('T')[0];
         const partnerStartDate = data.partnerData[0].date.split('T')[0];
         const startDate = moment(userStartDate).isSameOrBefore(partnerStartDate) ? moment(userStartDate) : moment(partnerStartDate);
         console.log(startDate);
-        let dateTimesArray = [];
+        let datesTimesArray = [];
         const userDataLength = data.userData.length;
         let userCount = 0;
         const partnerDataLength = data.partnerData.length;
         let partnerCount = 0;
         let currentDate = moment(startDate).format('YYYY-MM-DD');
-        let helpcheck = 0;
+        if (moment().hour() < 6) {
+            yesterday = moment(yesterday).subtract(2, 'days');
+        }
+        else if (moment().hour() > 5) {
+            yesterday = moment(yesterday).subtract(1, 'days');
+        }
+        else {
+            yesterday = moment(yesterday).subtract(1, 'days');
+        }
 
-        while (helpcheck < 50 && userCount < userDataLength && partnerCount < partnerDataLength) {
+        while (moment(currentDate).isSameOrBefore(yesterday)) {
             const userCheck = userCount < userDataLength;
             const partnerCheck = partnerCount < partnerDataLength;
             const dateTimeObj = {
@@ -193,16 +164,21 @@ const organizeGridData = (data) => {
                 dateTimeObj['partnerTime'] = data.partnerData[partnerCount].bedtime;
                 partnerCount++;
             }
-            dateTimesArray.push(dateTimeObj);
+            datesTimesArray.push(dateTimeObj);
             currentDate = moment(currentDate).add(1, 'days').format('YYYY-MM-DD');
-            helpcheck++;
+        }
+        const today = {"userTodayTime": "", "partnerTodayTime": ""};
+        if (moment(data.userData[data.userData.length - 1].date.split('T')[0]).isSame(moment(yesterday).add(1, 'days'))) {
+            today.userTodayTime = data.userData[data.userData.length - 1].date.bedtime;
+        }
+        if (moment(data.partnerData[data.partnerData.length - 1].date.split('T')[0]).isSame(moment(yesterday).add(1, 'days'))) {
+            today.partnerTodayTime = data.partnerData[data.partnerData.length - 1].date.bedtime;
         }
         // setDateTimes(dateTimesArray);
-        console.log("dateTimesArray: ", dateTimesArray);
-        return dateTimesArray;
+        console.log("dateTimesArray: ", datesTimesArray);
+        return {'datesTimesArray': datesTimesArray, 'today': today};
     }
 }
-
 
 export {
   calendar,

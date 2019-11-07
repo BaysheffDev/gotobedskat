@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import moment from 'moment';
-import { getTime, getBarWidth } from './helpers.js';
+import { getTime, getCorrectDay, getBarWidth } from './helpers.js';
+import { sendBedtime } from './requests.js';
 
 const Today = ({ userTime, partnerTime, userColor, partnerColor }) => {
     const [entered, setEntered] = useState(userTime);
@@ -8,11 +9,28 @@ const Today = ({ userTime, partnerTime, userColor, partnerColor }) => {
     const [rightBarWidth] = useState(getBarWidth(partnerTime));
     const [today] = useState(moment().format("ddd DD-MM"));
     const [time, setTime] = useState();
-    // const [count, setCount] = useState(0);
 
-    const updateDay = () => {
-        setEntered(getTime());
-        setLeftBarWidth(getBarWidth(getTime()));
+    const updateDay = async () => {
+        const request = await sendBedtime(
+            localStorage.getItem("userId"),
+            localStorage.getItem("partnerId"),
+            getCorrectDay(),
+            getTime(),
+        )
+        if (request.success) {
+            const enteredTime = request.dayInfo.bedtime.split('T')[0];
+            setEntered(enteredTime);
+            setLeftBarWidth(getBarWidth(enteredTime));
+        }
+    }
+
+    const getCorrectDay = () => {
+        if (moment().hour() <= 23 && moment().hour() > 5) {
+            return moment().format('YYYY-MM-DD');
+        }
+        else {
+            return moment().subtract(1, 'days').format('YYYY-MM-DD');
+        }
     }
 
     let count = 0;

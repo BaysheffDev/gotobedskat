@@ -149,7 +149,7 @@
 }
 .sidemenu-container {
     height: 100vh;
-    position: absolute;
+    position: fixed;
     width: 100%;
     z-index: 10;
     left: -100%;
@@ -237,6 +237,18 @@
     padding: 10px;
     text-align: center;
     font-size: 0.8em;
+}
+.unsync-button {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin: 5px;
+    padding: 5px;
+    font-size: 0.6em;
+    background: linear-gradient(210deg, #290000, #ff8721);
+    border: none;
+    color: white;
+    border-radius: 20px;
 }
 
 /* Login Section */

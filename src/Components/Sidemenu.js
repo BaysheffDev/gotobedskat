@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { getColor } from './helpers.js';
-import { changeSettingRequest } from './requests.js';
+import { changeSettingRequest, unsyncPartner } from './requests.js';
 
 const Sidemenu = ({ slide, toggleSideMenu, logout, userId, userName, userCode, userColor, updateGridSetting }) => {
     const [userNameText, setUserNameText] = useState("");
@@ -54,6 +54,13 @@ const Sidemenu = ({ slide, toggleSideMenu, logout, userId, userName, userCode, u
         }
     }
 
+    const unsync = async () => {
+        const response = await unsyncPartner(localStorage.getItem("userId"));
+        if (response.success) {
+            logout();
+        }
+    }
+
     return (
         <div className="sidemenu-container">
             <div onClick={() => toggleSideMenu()} className={"sidemenu-overlay " + (slide ? "overlay-open" : "")}></div>
@@ -90,6 +97,7 @@ const Sidemenu = ({ slide, toggleSideMenu, logout, userId, userName, userCode, u
                     <button onClick={() => logout()} className="logout-button">Logout</button>
                 </div>
                 <div className="sidemenu-message">{message}</div>
+                <button className="unsync-button" onClick={() => unsync(userId)}>UnsyncPartner</button>
                 <div className="sidemenu-bottom-note">
                     For Lest &#60;3
                 </div>
