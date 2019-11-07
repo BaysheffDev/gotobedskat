@@ -32,6 +32,14 @@
     top: -14px;
     display: flex;
 }
+.day-date div:first-child {
+    min-width: 50px;
+    text-align: right;
+}
+.day-date div:last-child {
+    min-width: 50px;
+    text-align: left;
+}
 .day-date-text {
     margin: 0 5px;
 }
@@ -223,6 +231,12 @@
 }
 .sidemenu-field-container button {
     box-shadow: 0px 1px 5px -1px pink;
+}
+.sidemenu-message {
+    color: #919191;
+    padding: 10px;
+    text-align: center;
+    font-size: 0.8em;
 }
 
 /* Login Section */

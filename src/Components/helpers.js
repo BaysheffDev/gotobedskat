@@ -85,6 +85,10 @@ const getTime = () => {
 // Accepts: time in format: 8:20pm |
 // Returns: width % for the days bar display
 const getBarWidth = (time) => {
+    if (!time) {
+        return 5;
+    }
+
     // Hard coded parameters to match the hours displayed on UI
     const firstHour = 8;
     const lastHour = 2;
@@ -131,6 +135,12 @@ const getColor = (color) => {
         case 2:
             return "pink"
             break;
+        case 'lightblue':
+            return 1;
+            break;
+        case 'pink':
+            return 2;
+            break;
         default:
             return "lightblue"
     }
@@ -149,6 +159,50 @@ const startScreen = () => {
     }
 }
 
+// Organize and package data in an array of objects containing "date", "userTime", "partnerTime"
+const organizeGridData = (data) => {
+    if (!data.success) {
+        return false;
+    }
+    else {
+        const userStartDate = data.userData[0].date.split('T')[0];
+        const partnerStartDate = data.partnerData[0].date.split('T')[0];
+        const startDate = moment(userStartDate).isSameOrBefore(partnerStartDate) ? moment(userStartDate) : moment(partnerStartDate);
+        console.log(startDate);
+        let dateTimesArray = [];
+        const userDataLength = data.userData.length;
+        let userCount = 0;
+        const partnerDataLength = data.partnerData.length;
+        let partnerCount = 0;
+        let currentDate = moment(startDate).format('YYYY-MM-DD');
+        let helpcheck = 0;
+
+        while (helpcheck < 50 && userCount < userDataLength && partnerCount < partnerDataLength) {
+            const userCheck = userCount < userDataLength;
+            const partnerCheck = partnerCount < partnerDataLength;
+            const dateTimeObj = {
+                'date': currentDate,
+                'userTime': "",
+                'partnerTime': ""
+            };
+            if (userCheck && moment(data.userData[userCount].date.split('T')[0]).isSame(currentDate)) {
+                dateTimeObj['userTime'] = data.userData[userCount].bedtime;
+                userCount++;
+            }
+            if (partnerCheck && moment(data.partnerData[partnerCount].date.split('T')[0]).isSame(currentDate)) {
+                dateTimeObj['partnerTime'] = data.partnerData[partnerCount].bedtime;
+                partnerCount++;
+            }
+            dateTimesArray.push(dateTimeObj);
+            currentDate = moment(currentDate).add(1, 'days').format('YYYY-MM-DD');
+            helpcheck++;
+        }
+        // setDateTimes(dateTimesArray);
+        console.log("dateTimesArray: ", dateTimesArray);
+        return dateTimesArray;
+    }
+}
+
 
 export {
   calendar,
@@ -156,4 +210,5 @@ export {
   getBarWidth,
   getColor,
   startScreen,
+  organizeGridData
 }

@@ -21,6 +21,7 @@ const userRequest = (endpoint, username, usercode, usercolor) => {
     .catch(err => console.log(err))
 }
 
+// Check if partner is synced with user
 const checkSync = (endpoint, userid) => {
     return fetch(`${baseUrl}${endpoint}`, {
         method: 'post',
@@ -80,14 +81,37 @@ const unsyncPartner = (userid) => {
 }
 
 // Change a user setting
-const changeSettingRequest = (setting, value) => {
+const changeSettingRequest = (userid, setting, value) => {
+    console.log("SETTING: ", setting);
+    console.log("VALUE: ", value);
     return fetch(`${baseUrl}update/${setting}`, {
         method: 'post',
         headers: {
             'content-type': 'application/json',
         },
         body: JSON.stringify({
-            'setting': value,
+            'userid': userid,
+            'value': value,
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+      return data;
+    })
+    .catch(err => console.log(err))
+}
+
+// Change a user setting
+const requestGridData = (userid, partnerid) => {
+    return fetch(`${baseUrl}data`, {
+        method: 'post',
+        headers: {
+            'content-type': 'application/json',
+        },
+        body: JSON.stringify({
+            'userid': userid,
+            'partnerid': partnerid,
         })
     })
     .then(response => response.json())
@@ -103,5 +127,6 @@ export {
   partnerRequest,
   unsyncPartner,
   checkSync,
-  changeSettingRequest
+  changeSettingRequest,
+  requestGridData
 }

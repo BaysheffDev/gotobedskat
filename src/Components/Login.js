@@ -74,7 +74,7 @@ const Login = ({ openGrid }) => {
                 localStorage.setItem("userCode", response.userinfo.usercode);
                 setMessage("");
                 if (logIntoGrid) {
-                    localStorage.setItem("partnerId", response.partnerinfo.partnerid);
+                    localStorage.setItem("partnerId", response.partnerinfo.id);
                     localStorage.setItem("partnerName", response.partnerinfo.username);
                     localStorage.setItem("partnerColor", response.partnerinfo.usercolor);
                     openGrid(response.userinfo.userid);

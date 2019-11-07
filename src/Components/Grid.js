@@ -4,20 +4,24 @@ import Day from './Day.js';
 import Today from './Today.js';
 import Sidemenu from './Sidemenu.js';
 import data from '../data.js';
-import {calendar} from './helpers.js';
+import { calendar, organizeGridData} from './helpers.js';
 import {
     unsyncPartner,
-    checkSync
+    // checkSync,
+    requestGridData
 } from './requests.js';
 
 const Grid = ({ logout }) => {
   // const [dates, setTodayDates] = useState(calendar(moment().format('YYYY-MM-DD')));
-  const [datesTimes] = useState(data.sleepData);
+  // const [datesTimes] = useState(data.sleepData);
+  const [datesTimes, setDatesTimes] = useState([]);
   const [userInfo] = useState(data.userInfoData);
 
+  const [userId] = useState(localStorage.getItem("userId"));
   const [userName, setUserName] = useState(localStorage.getItem("userName"));
   const [userCode, setUserCode] = useState(localStorage.getItem("userCode"));
   const [userColor, setUserColor] = useState(localStorage.getItem("userColor"));
+  const [partnerId] = useState(localStorage.getItem("partnerId"));
   const [partnerName, setPartnerName] = useState(localStorage.getItem("partnerName"));
   const [partnerColor, setPartnerColor] = useState(localStorage.getItem("partnerColor"));
 
@@ -27,17 +31,29 @@ const Grid = ({ logout }) => {
   useEffect(() => {
       bottomRef.current.scrollIntoView();
       console.log("OKOK");
-      checkStillSynced();
-  });
+      // checkStillSynced();
+      const getGridData = async () => {
+          const data = await requestGridData(userId, partnerId);
+          const datesTimesArray = organizeGridData(data);
+          !datesTimesArray ? logout() : setDatesTimes(datesTimesArray);
+        }
+      getGridData();
+      // requests();
+  }, []);
 
-  const checkStillSynced = async () => {
-      const response = await checkSync('checksync', localStorage.getItem("userId"));
-      console.log(JSON.stringify(response));
-      console.log("yep");
-      if (!response.success) {
-          logout();
-      }
-  }
+  // const checkStillSynced = async () => {
+  //     const response = await checkSync('checksync', localStorage.getItem("userId"));
+  //     if (!response.success) {
+  //         logout();
+  //     }
+  //     else {
+  //         localStorage.setItem("partnerId", response.partnerid);
+  //     }
+  // }
+  // const requests = async () => {
+  //     const one = await checkStillSynced();
+  //     const two = await getGridData();
+  // }
 
   const toggleSideMenu = () => {
       setSideMenu(!sideMenu);
@@ -45,14 +61,17 @@ const Grid = ({ logout }) => {
 
   const updateGridSetting = (setting, value) => {
     switch(setting) {
-      case 'username':
+      case 'userName':
         setUserName(value);
         break;
-      case 'usercode':
+      case 'userCode':
         setUserCode(value);
         break;
-      case 'usercolor':
+      case 'userColor':
         setUserColor(value);
+        break;
+      default:
+        console.log("Error updating grid setting");
         break;
     }
   }
@@ -68,6 +87,7 @@ const Grid = ({ logout }) => {
           slide={sideMenu}
           toggleSideMenu={toggleSideMenu}
           logout={logout}
+          userId={userId}
           userName={userName}
           userCode={userCode}
           userColor={userColor}
