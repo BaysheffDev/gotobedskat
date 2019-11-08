@@ -46,26 +46,11 @@ const Grid = ({ logout }) => {
           }
         }
       getGridData();
-      // requests();
   }, []);
 
   useEffect(() => {
       bottomRef.current.scrollIntoView();
   }, [datesTimes]);
-
-  // const checkStillSynced = async () => {
-  //     const response = await checkSync('checksync', localStorage.getItem("userId"));
-  //     if (!response.success) {
-  //         logout();
-  //     }
-  //     else {
-  //         localStorage.setItem("partnerId", response.partnerid);
-  //     }
-  // }
-  // const requests = async () => {
-  //     const one = await checkStillSynced();
-  //     const two = await getGridData();
-  // }
 
   const toggleSideMenu = () => {
       setSideMenu(!sideMenu);
@@ -83,7 +68,6 @@ const Grid = ({ logout }) => {
         setUserColor(value);
         break;
       default:
-        console.log("Error updating grid setting");
         break;
     }
   }

@@ -124,18 +124,13 @@ const requestGridData = (userid, partnerid) => {
 
 // Send bedtime
 const sendBedtime = (userid, partnerid, date, time, message) => {
-    console.log(userid);
-    console.log(partnerid);
-    console.log(date);
-    console.log(time);
-    // console.log(userid);
     return fetch(`${baseUrl}bedtime`, {
         method: 'post',
         headers: {
             'content-type': 'application/json',
         },
         body: JSON.stringify({
-            'uiserid': userid,
+            'userid': userid,
             'partnerid': partnerid,
             'date': date,
             'time': time,

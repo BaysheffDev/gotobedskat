@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import moment from 'moment';
 import { getTime, getCorrectDay, getBarWidth } from './helpers.js';
 import { sendBedtime } from './requests.js';
@@ -7,9 +7,15 @@ const Today = ({ userTime, partnerTime, userColor, partnerColor }) => {
     const [entered, setEntered] = useState(userTime);
     const [partnerEntered, setPartnerEntered] = useState(partnerTime);
     const [leftBarWidth, setLeftBarWidth] = useState(userTime ? getBarWidth(userTime) : 5);
-    const [rightBarWidth] = useState(partnerTime ? getBarWidth(partnerTime) : 5);
+    const [rightBarWidth, setRightBarWidth] = useState(partnerTime ? getBarWidth(partnerTime) : 5);
     const [today] = useState(moment().format("ddd DD-MM"));
     const [time, setTime] = useState();
+
+    useEffect(() => {
+      setEntered(userTime);
+      setLeftBarWidth(getBarWidth(userTime));
+      setRightBarWidth(partnerTime ? getBarWidth(partnerTime) : 5);
+    }, [userTime, partnerTime]);
 
     const updateDay = async () => {
         const request = await sendBedtime(
@@ -45,7 +51,7 @@ const Today = ({ userTime, partnerTime, userColor, partnerColor }) => {
         }, 300);
     }
 
-    if (entered) {
+    if (entered !== "") {
         return (
             <div className="day day-today">
                 <div className="day-date">

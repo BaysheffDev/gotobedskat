@@ -58,17 +58,14 @@ const getBarWidth = (time) => {
     const halfHour = true;
 
     const splitTime = time.split(":");
-    const hour = splitTime[0];
+    const hour = parseInt(splitTime[0]);
     const rest = splitTime[1];
     const digits = /[0-9]/g;
     const alpha = /[a-zA-Z]/g;
     let minute = rest.match(digits);
-    minute = minute.join("");
+    minute = parseInt(minute.join(""));
     let suffix = rest.match(alpha);
     suffix = suffix.join("");
-    console.log("hour: ", hour);
-    console.log("minute: ", minute);
-    console.log("suffix: ", suffix);
 
     if (hour < firstHour && suffix === 'pm')
         return 5;
@@ -80,11 +77,17 @@ const getBarWidth = (time) => {
         if (hour >= lastHour)
             return 100;
     }
+    let hr = 0;
+    if (hour < 12 && suffix === 'am') {
+      hr = 12 - firstHour + hour;
+    }
+    else {
+      hr = hour - firstHour;
+      console.log("2: ", hr);
+    }
     const min = minute / 60;
-    const hr = hour - firstHour;
     const width = (hr + min) / duration * 100;
-    console.log(width);
-
+console.log(width);
     return width;
 }
 
@@ -93,16 +96,12 @@ const getColor = (color) => {
     switch(color) {
         case 1:
             return "lightblue"
-            break;
         case 2:
             return "pink"
-            break;
         case 'lightblue':
             return 1;
-            break;
         case 'pink':
             return 2;
-            break;
         default:
             return "lightblue"
     }
@@ -128,10 +127,9 @@ const organizeGridData = (data) => {
     }
     else {
         let yesterday = moment().format('YYYY-MM-DD');
-        const userStartDate = data.userData[0].date.split('T')[0];
-        const partnerStartDate = data.partnerData[0].date.split('T')[0];
+        const userStartDate = data.userData[0].date;
+        const partnerStartDate = data.partnerData[0].date;
         const startDate = moment(userStartDate).isSameOrBefore(partnerStartDate) ? moment(userStartDate) : moment(partnerStartDate);
-        console.log(startDate);
         let datesTimesArray = [];
         const userDataLength = data.userData.length;
         let userCount = 0;
@@ -156,11 +154,11 @@ const organizeGridData = (data) => {
                 'userTime': "",
                 'partnerTime': ""
             };
-            if (userCheck && moment(data.userData[userCount].date.split('T')[0]).isSame(currentDate)) {
+            if (userCheck && moment(data.userData[userCount].date).isSame(currentDate)) {
                 dateTimeObj['userTime'] = data.userData[userCount].bedtime;
                 userCount++;
             }
-            if (partnerCheck && moment(data.partnerData[partnerCount].date.split('T')[0]).isSame(currentDate)) {
+            if (partnerCheck && moment(data.partnerData[partnerCount].date).isSame(currentDate)) {
                 dateTimeObj['partnerTime'] = data.partnerData[partnerCount].bedtime;
                 partnerCount++;
             }
@@ -168,16 +166,14 @@ const organizeGridData = (data) => {
             currentDate = moment(currentDate).add(1, 'days').format('YYYY-MM-DD');
         }
         const today = {"userTodayTime": "", "partnerTodayTime": ""};
-        const userLastDate = data.userData[data.userData.length - 1].date.split('T')[0];
-        const partnerLastDate = data.partnerData[data.partnerData.length - 1].date.split('T')[0];
-        if (moment(userLastDate).isSame(moment(yesterday).add(1, 'days'))) {
+        const userLastDate = data.userData[data.userData.length - 1].date;
+        const partnerLastDate = data.partnerData[data.partnerData.length - 1].date;
+        if (moment(userLastDate).isSame(moment(yesterday).add(1, 'days').format('YYYY-MM-DD'))) {
             today.userTodayTime = data.userData[data.userData.length - 1].bedtime;
         }
-        if (moment(partnerLastDate).isSame(moment(yesterday).add(1, 'days'))) {
+        if (moment(partnerLastDate).isSame(moment(yesterday).add(1, 'days').format('YYYY-MM-DD'))) {
             today.partnerTodayTime = data.partnerData[data.partnerData.length - 1].bedtime;
         }
-        // setDateTimes(dateTimesArray);
-        console.log("dateTimesArray: ", datesTimesArray);
         return {'datesTimesArray': datesTimesArray, 'today': today};
     }
 }
