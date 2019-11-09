@@ -1,5 +1,6 @@
 html, body, #root, .App {
     height: 100%;
+    background: black;
 }
 .App {
     background: black;
@@ -126,7 +127,6 @@ html, body, #root, .App {
 .menu-button-icon {
     font-size: 2.5em;
     color: lightblue;
-    transform: translateY(-6px);
 }
 .beginning-component {
     color: white;

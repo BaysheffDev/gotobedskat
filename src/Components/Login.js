@@ -87,6 +87,7 @@ const Login = ({ openGrid }) => {
             const response = await userRequest('createuser', username, usercode, usercolor);
             localStorage.setItem("userId", response.id);
             localStorage.setItem("userName", response.username);
+            localStorage.setItem("userColor", response.usercolor);
             localStorage.setItem("userCode", response.usercode);
             setScreen(1);
         }

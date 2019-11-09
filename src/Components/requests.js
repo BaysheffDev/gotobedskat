@@ -1,5 +1,5 @@
-// const baseUrl = 'http://localhost:3001/';
-const baseUrl = 'https://glacial-dawn-05185.herokuapp.com/';
+const baseUrl = 'http://localhost:3001/';
+// const baseUrl = 'https://glacial-dawn-05185.herokuapp.com/';
 
 // Login or create new user
 const userRequest = (endpoint, username, usercode, usercolor) => {

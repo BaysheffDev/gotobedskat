@@ -105,7 +105,7 @@ const Grid = ({ logout }) => {
             <Day dateTime={dateTime} userColor={userColor} partnerColor={partnerColor} />
           </div>
         )}
-        {moment().hour() > 5 && moment().hour() < 11 ? "" : <Today userTime={userTime} partnerTime={partnerTime} userColor={userColor} partnerColor={partnerColor} />}
+        {moment().hour() > 5 && moment().hour() < 18 ? "" : <Today userTime={userTime} partnerTime={partnerTime} userColor={userColor} partnerColor={partnerColor} />}
         <div ref={bottomRef} className="footer-spacer"></div>
     </div>
   );
