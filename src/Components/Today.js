@@ -57,7 +57,7 @@ const Today = ({ userTime, partnerTime, userColor, partnerColor }) => {
                 <div className="day-date">
                     <div style={{color: `${userColor}`}}>{entered}</div>
                     <div className="day-date-text">{today}</div>
-                    <div style={{color: `${partnerColor}`}}>{partnerTime}</div>
+                    <div style={{color: `${partnerColor}`}}>{partnerEntered}</div>
                 </div>
               <div onClick={() => handelDoubleClick()} className="left">
                 <div style={{background: `${userColor}`, width: `${leftBarWidth}%`}} className="day-level-left"></div>

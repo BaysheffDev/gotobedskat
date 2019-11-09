@@ -41,8 +41,9 @@ const Login = ({ openGrid }) => {
     }
 
     const validateUser = async () => {
+        setMessage("");
         const usercolor = getColor(color);
-        if (username.length < 3 && usercode.length < 3) {
+        if (username.length < 3 || usercode.length < 3) {
             setMessage("Fields must be at least 3 characters");
         }
         else if (!color && !login) {
@@ -92,7 +93,8 @@ const Login = ({ openGrid }) => {
     }
 
     const validatePartner = async () => {
-        if (partnername.length < 3 && partnercode.length < 3) {
+        setMessage("");
+        if (partnername.length < 3 || partnercode.length < 3) {
             setMessage("Fields must be at least 3 characters");
         }
         else {
@@ -113,6 +115,7 @@ const Login = ({ openGrid }) => {
         const response = await unsyncPartner(localStorage.getItem("userId"));
         if (response.success) {
             localStorage.removeItem("partnerName");
+            setMessage("");
             setScreen(1);
         }
     }
@@ -137,7 +140,7 @@ const Login = ({ openGrid }) => {
                 <div className="login-submit-container">
                     <button style={{display: screen === 0 ? "" : "none"}} onClick={() => validateUser()} className="login-submit-button plus">+</button>
                     <button style={{display: screen === 1 ? "" : "none"}} onClick={() => validatePartner()} className="login-submit-button plus">+</button>
-                    <button style={{display: screen === 1 ? "" : "none"}} onClick={() => {setScreen(0); localStorage.clear() }} className="login-submit-button back">&lt;</button>
+                    <button style={{display: screen === 1 ? "" : "none"}} onClick={() => {setScreen(0); localStorage.clear(); setMessage(""); }} className="login-submit-button back">&lt;</button>
                     <button style={{display: screen === 2 ? "" : "none"}} onClick={() => unsync()} className="login-submit-button back">&lt;</button>
                 </div>
                 <div className="login-message-container">{message}</div>

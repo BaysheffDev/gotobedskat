@@ -66,8 +66,7 @@ const getBarWidth = (time) => {
     minute = parseInt(minute.join(""));
     let suffix = rest.match(alpha);
     suffix = suffix.join("");
-
-    if (hour < firstHour && suffix === 'pm')
+    if ((hour < firstHour && suffix === 'pm') || (hour > 6 && suffix === 'am'))
         return 5;
     if (halfHour) {
         if (hour >= lastHour && hour < lastHour + 1 && minute >= 30 && suffix === 'am')

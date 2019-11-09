@@ -3,13 +3,8 @@ import moment from 'moment';
 import Day from './Day.js';
 import Today from './Today.js';
 import Sidemenu from './Sidemenu.js';
-import data from '../data.js';
-import { calendar, organizeGridData} from './helpers.js';
-import {
-    unsyncPartner,
-    // checkSync,
-    requestGridData
-} from './requests.js';
+import { organizeGridData} from './helpers.js';
+import { requestGridData } from './requests.js';
 
 const Grid = ({ logout }) => {
   // const [dates, setTodayDates] = useState(calendar(moment().format('YYYY-MM-DD')));
@@ -17,9 +12,6 @@ const Grid = ({ logout }) => {
   const [datesTimes, setDatesTimes] = useState([]);
   const [userTime, setUserTime] = useState("");
   const [partnerTime, setPartnerTime] = useState("");
-
-  const [userInfo] = useState(data.userInfoData);
-
   const [userId] = useState(localStorage.getItem("userId"));
   const [userName, setUserName] = useState(localStorage.getItem("userName"));
   const [userCode, setUserCode] = useState(localStorage.getItem("userCode"));
@@ -32,7 +24,6 @@ const Grid = ({ logout }) => {
   const bottomRef = useRef(null);
 
   useEffect(() => {
-      // checkStillSynced();
       const getGridData = async () => {
           const data = await requestGridData(userId, partnerId);
           const dataArray = organizeGridData(data);
@@ -114,7 +105,7 @@ const Grid = ({ logout }) => {
             <Day dateTime={dateTime} userColor={userColor} partnerColor={partnerColor} />
           </div>
         )}
-        {moment().hour() > 5 && moment().hour() < 18 ? "" : <Today userTime={userTime} partnerTime={partnerTime} userColor={userColor} partnerColor={partnerColor} />}
+        {moment().hour() > 5 && moment().hour() < 11 ? "" : <Today userTime={userTime} partnerTime={partnerTime} userColor={userColor} partnerColor={partnerColor} />}
         <div ref={bottomRef} className="footer-spacer"></div>
     </div>
   );

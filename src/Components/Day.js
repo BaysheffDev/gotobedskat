@@ -3,10 +3,10 @@ import moment from 'moment';
 import { getBarWidth } from './helpers.js';
 
 const Day = ({ dateTime, userColor, partnerColor }) => {
-  const [left, setLeft] = useState(dateTime.userTime);
-  const [right, setRight] = useState(dateTime.partnerTime);
-  const [leftBarWidth, setLeftBarWidth] = useState(getBarWidth(dateTime.userTime));
-  const [rightBarWidth, setRightBarWidth] = useState(getBarWidth(dateTime.partnerTime));
+  const [left] = useState(dateTime.userTime);
+  const [right] = useState(dateTime.partnerTime);
+  const [leftBarWidth] = useState(getBarWidth(dateTime.userTime));
+  const [rightBarWidth] = useState(getBarWidth(dateTime.partnerTime));
   const [today] = useState(moment(dateTime.date).format("ddd DD-MM"));
 
   return (
