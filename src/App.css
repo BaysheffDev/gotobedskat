@@ -16,8 +16,12 @@ html, body, #root, .App {
     width: 100%;
     height: 40px;
     margin-bottom: 5px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
     margin-top: 20px;
     position: relative;
 }
@@ -25,6 +29,8 @@ html, body, #root, .App {
     width: 100%;
 }
 .day.day-today {
+    background: -webkit-gradient(linear, left top, left bottom, from(#424242), color-stop(black), to(#424242));
+    background: -o-linear-gradient(top, #424242, black, #424242);
     background: linear-gradient(180deg, #424242, black, #424242);
     padding: 5px 0;
 }
@@ -33,6 +39,8 @@ html, body, #root, .App {
     color: white;
     font-size: 0.6em;
     top: -14px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
 }
 .day-date div:first-child {
@@ -69,18 +77,27 @@ html, body, #root, .App {
 .today-container {
     width: 100%;
     height: 70px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
 }
 
 .today {
-    box-shadow: 1px 1px 10px -1px white;
+    -webkit-box-shadow: 1px 1px 10px -1px white;
+            box-shadow: 1px 1px 10px -1px white;
     width: 100%;
     margin: 15px 20px 5px 20px;
     border-radius: 50px;
     color: lightblue;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
 }
 
 .header, .footer {
@@ -101,27 +118,42 @@ html, body, #root, .App {
   width: 100%;
 }
 .header-hours, .footer-hours {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     width: 100%;
     height: 100%;
 }
 .header-hour, .footer-hour {
     width: 7.7%;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
     font-size: 0.6em;
 }
 .menu-button {
     width: 50px;
     height: 50px;
-    box-shadow: 0px 0px 3px 1px grey;
+    -webkit-box-shadow: 0px 0px 3px 1px grey;
+            box-shadow: 0px 0px 3px 1px grey;
     position: fixed;
     top: 45px;
     left: 15px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
     z-index: 1;
 }
 .menu-button-icon {
@@ -163,6 +195,8 @@ html, body, #root, .App {
     z-index: 1;
     position: absolute;
     left: 0%;
+    -webkit-transition: left 0.2s linear;
+    -o-transition: left 0.2s linear;
     transition: left 0.2s linear;
 }
 .overlay-open {
@@ -170,6 +204,8 @@ html, body, #root, .App {
 }
 .sidemenu-open {
     left: 100%;
+    -webkit-transition: left 0.2s linear;
+    -o-transition: left 0.2s linear;
     transition: left 0.2s linear;
 }
 .sidemenu-bottom-note {
@@ -192,10 +228,14 @@ html, body, #root, .App {
     font-size: 0.9em;
 }
 .sidemenu-input-container {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     height: 30px;
 }
 .sidemenu-input-container input {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     width: 70%;
     border: none;
@@ -205,6 +245,7 @@ html, body, #root, .App {
 .sidemenu-input-container button {
    border-radius: 0px 20px 20px 0px;
    border: none;
+   background: -o-linear-gradient(240deg, #290000, #ad0000);
    background: linear-gradient(210deg, #290000, #ad0000);
    font-size: 0.7em;
    color: white;
@@ -225,6 +266,7 @@ html, body, #root, .App {
     width: 100%;
     border-radius: 50px;
     height: 20px;
+    background: -o-linear-gradient(240deg, #290000, #ad0000);
     background: linear-gradient(210deg, #290000, #ad0000);
     color: white;
     border: none;
@@ -232,7 +274,8 @@ html, body, #root, .App {
     font-size: 0.7em;
 }
 .sidemenu-field-container button {
-    box-shadow: 0px 1px 5px -1px pink;
+    -webkit-box-shadow: 0px 1px 5px -1px pink;
+            box-shadow: 0px 1px 5px -1px pink;
 }
 .sidemenu-message {
     color: #919191;
@@ -247,6 +290,7 @@ html, body, #root, .App {
     margin: 5px;
     padding: 5px;
     font-size: 0.6em;
+    background: -o-linear-gradient(240deg, #290000, #ff8721);
     background: linear-gradient(210deg, #290000, #ff8721);
     border: none;
     color: white;
@@ -269,7 +313,8 @@ html, body, #root, .App {
     border-radius: 0px;
 }
 .app-title-underline {
-    box-shadow: 0px -11px 14px -10px pink;
+    -webkit-box-shadow: 0px -11px 14px -10px pink;
+            box-shadow: 0px -11px 14px -10px pink;
     border-radius: 50%;
     height: 35px;
     width: 180px;
@@ -279,7 +324,9 @@ html, body, #root, .App {
 }
 .app-title img {
     width: 65px;
-    transform: translateY(15px);
+    -webkit-transform: translateY(15px);
+        -ms-transform: translateY(15px);
+            transform: translateY(15px);
 }
 .login-field {
     display: block;
@@ -291,7 +338,8 @@ html, body, #root, .App {
     width: 220px;
     text-align: center;
     background: none;
-    box-shadow: 0px 0px 12px -1px inset pink;
+    -webkit-box-shadow: 0px 0px 12px -1px inset pink;
+            box-shadow: 0px 0px 12px -1px inset pink;
     color: white;
     height: 40px;
 }
@@ -314,11 +362,13 @@ html, body, #root, .App {
 }
 button.login-button-left {
     color: pink;
-    box-shadow: 50px 0px 50px -40px inset pink;
+    -webkit-box-shadow: 50px 0px 50px -40px inset pink;
+            box-shadow: 50px 0px 50px -40px inset pink;
 }
 button.login-button-right {
     color: pink;
-    box-shadow: -50px 0px 50px -40px inset pink;
+    -webkit-box-shadow: -50px 0px 50px -40px inset pink;
+            box-shadow: -50px 0px 50px -40px inset pink;
 }
 .login-submit-container {
     text-align: center;
@@ -331,10 +381,14 @@ button.login-button-right {
     border-radius: 50%;
     padding: 0px;
     background: none;
-    animation-name: glow;
-    animation-duration: 4s;
-    animation-iteration-count: infinite;
-    animation-timing-function: linear;
+    -webkit-animation-name: glow;
+            animation-name: glow;
+    -webkit-animation-duration: 4s;
+            animation-duration: 4s;
+    -webkit-animation-iteration-count: infinite;
+            animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+            animation-timing-function: linear;
     color: rgba(173, 216, 230, 0.5);
     font-size: 0.6em;
     margin: 0px 10px;
@@ -342,10 +396,15 @@ button.login-button-right {
 .login-submit-button.plus, .login-submit-button.back{
     font-size: 1.2em;
 }
+@-webkit-keyframes glow {
+    0% {-webkit-box-shadow: 8px -2px 10px -5px inset lightblue;box-shadow: 8px -2px 10px -5px inset lightblue;}
+    50% {-webkit-box-shadow: 8px -2px 8px 3px inset lightblue;box-shadow: 8px -2px 8px 3px inset lightblue;}
+    100% {-webkit-box-shadow: 8px -2px 10px -5px inset lightblue;box-shadow: 8px -2px 10px -5px inset lightblue;}
+}
 @keyframes glow {
-    0% {box-shadow: 8px -2px 10px -5px inset lightblue;}
-    50% {box-shadow: 8px -2px 8px 3px inset lightblue;}
-    100% {box-shadow: 8px -2px 10px -5px inset lightblue;}
+    0% {-webkit-box-shadow: 8px -2px 10px -5px inset lightblue;box-shadow: 8px -2px 10px -5px inset lightblue;}
+    50% {-webkit-box-shadow: 8px -2px 8px 3px inset lightblue;box-shadow: 8px -2px 8px 3px inset lightblue;}
+    100% {-webkit-box-shadow: 8px -2px 10px -5px inset lightblue;box-shadow: 8px -2px 10px -5px inset lightblue;}
 }
 .login-submit-container button:focus {
     border: 1px solid lightblue;
@@ -366,18 +425,28 @@ input:focus, button:focus {
 }
 .login-colors-container {
     margin-top: 20px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     width: 100%;
-    justify-content: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
 }
 .login-color {
     width: 40px;
     height: 40px;
     margin: 0 10px;
     border-radius: 50%;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
 }
 .login-color-inner {
     width: 25px;
